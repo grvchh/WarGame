@@ -1,5 +1,17 @@
+
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+
 package wargame;
 
+/**
+ *
+ * @author Gourav,Dilpreet Singh, Simranpreet Kaur Khattra
+ * 
+ */
 
 import wargame.Card;
 import java.util.ArrayList;
@@ -9,10 +21,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 public class WarGame {
     public static void main(String[] args) {
         List<Card> cardDeck = new LinkedList<>();
