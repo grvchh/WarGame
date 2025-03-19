@@ -5,50 +5,57 @@
 package wargame;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Arrays;
+
+
 
 /**
  *
- * @author kaush
+ * @author Gourav,Dilpreet Singh, Simranpreet Kaur Khattra
+ * 
  */
-class Player {
-    private String name;
-    private LinkedList<Card> deck;
-    private int score;
-    
+
+public class Player {
+    private final String name;
+    private final LinkedList<Card> deck;
+
     public Player(String name, LinkedList<Card> deck) {
         this.name = name;
         this.deck = deck;
-        this.score = 0;
     }
-    
+
     public String getName() {
         return name;
     }
-    
-    public int getScore() {
-        return score;
+
+    public int getDeckSize() {
+        return deck.size();
     }
-    
-    public void increaseScore() {
-        score++;
+
+    public boolean hasLost() {
+        return deck.isEmpty();
     }
-    
-    public void showDeck() {
-        System.out.println(name + "'s Deck:");
-        for (int i = 0; i < deck.size(); i++) {
-            System.out.println((i + 1) + ". " + deck.get(i));
+
+    public Card playCard() {
+        return deck.isEmpty() ? null : deck.removeFirst();
+    }
+
+    public void winCards(Card... cards) {
+        deck.addAll(Arrays.asList(cards));
+    }
+
+    public boolean canContinueWar() {
+        return deck.size() >= 4;
+    }
+
+    public List<Card> playWarCards() {
+        List<Card> warCards = new LinkedList<>();
+        for (int i = 0; i < 3; i++) {
+            warCards.add(deck.removeFirst());
         }
+        warCards.add(playCard()); // The deciding card
+        return warCards;
     }
-    
-    public Card chooseCard(Scanner scanner) {
-        showDeck();
-        System.out.print(name + ", choose a card to play (1 - " + deck.size() + "): ");
-        int choice = scanner.nextInt() - 1;
-        while (choice < 0 || choice >= deck.size()) {
-            System.out.print("Invalid choice. Try again: ");
-            choice = scanner.nextInt() - 1;
-        }
-        return deck.remove(choice);
-    } 
 }

@@ -11,36 +11,27 @@ package wargame;
  */
 
 public class Card {
-    private int rank;
-    private int suit;
+    private final Rank rank;
+    private final Suit suit;
 
-    public Card(int suit, int rank) {
+    public Card(Suit suit, Rank rank) {
         this.rank = rank;
         this.suit = suit;
     }
 
-    public int getCard() {
+    public Rank getRank() {
         return rank;
+    }
+
+    public Suit getSuit() {
+        return suit;
     }
 
     @Override
     public String toString() {
-        StringBuilder displayCard = new StringBuilder();
-        switch (rank) {
-            case 11: displayCard.append("Jack"); break;
-            case 12: displayCard.append("Queen"); break;
-            case 13: displayCard.append("King"); break;
-            case 14: displayCard.append("Ace"); break;
-            default: displayCard.append(rank); break;
-        }
-        displayCard.append(" of ");
-        switch (suit) {
-            case 0: displayCard.append("Spades"); break;
-            case 1: displayCard.append("Hearts"); break;
-            case 2: displayCard.append("Clubs"); break;
-            case 3: displayCard.append("Diamonds"); break;
-        }
-        return displayCard.toString();
+        return rank.name() + " of " + suit.name();
     }
 }
+
+
 
