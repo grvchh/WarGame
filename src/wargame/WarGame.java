@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package wargame;
 
+
+import wargame.Card;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -11,83 +9,87 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-/**
- *
- * @author Gourav,Dilpreet Singh, Simranpreet Kaur Khattra
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-class WarGame {
-    private Player player1;
-    private Player player2;
-    private int round;
-    private final int maxRounds = 4;
-    
-    public WarGame(String name1, String name2) {
-        List<Card> cardDeck = new ArrayList<>();
-        for (int x = 0; x < 4; x++) {
-            for (int y = 2; y < 15; y++) {
-                cardDeck.add(new Card(x, y));
+public class WarGame {
+    public static void main(String[] args) {
+        List<Card> cardDeck = new LinkedList<>();
+
+        // Initialize deck with 52 cards (4 suits, values 2-14)
+        for (int suit = 0; suit < 4; suit++) {
+            for (int rank = 2; rank <= 14; rank++) {
+                cardDeck.add(new Card(suit, rank));
             }
         }
-        Collections.shuffle(cardDeck);
-        
+        Collections.shuffle(cardDeck, new Random());
+
+        // Split the deck between two players
         LinkedList<Card> deck1 = new LinkedList<>(cardDeck.subList(0, 26));
         LinkedList<Card> deck2 = new LinkedList<>(cardDeck.subList(26, 52));
-        
-        this.player1 = new Player(name1, deck1);
-        this.player2 = new Player(name2, deck2);
-        this.round = 1;
-    }
-    
-    public void playGame() {
-        Scanner scanner = new Scanner(System.in);
-        
-        while (round <= maxRounds) {
-            System.out.println("\n--- Round " + round + " ---");
-            Card card1 = player1.chooseCard(scanner);
-            Card card2 = player2.chooseCard(scanner);
-            
-            System.out.println(player1.getName() + " plays " + card1);
-            System.out.println(player2.getName() + " plays " + card2);
-            
-            if (card1.getRank() > card2.getRank()) {
-                System.out.println(player1.getName() + " wins this round!");
-                player1.increaseScore();
-            } else if (card1.getRank() < card2.getRank()) {
-                System.out.println(player2.getName() + " wins this round!");
-                player2.increaseScore();
-            } else {
-                System.out.println("It's a tie!");
+
+        int round = 1;
+        while (!deck1.isEmpty() && !deck2.isEmpty()) {
+            System.out.println("\nRound " + round++);
+            System.out.println("Player 1 has " + deck1.size() + " cards.");
+            System.out.println("Player 2 has " + deck2.size() + " cards.");
+
+            // Each player plays the top card
+            Card p1Card = deck1.removeFirst();
+            Card p2Card = deck2.removeFirst();
+
+            System.out.println("Player 1 plays: " + p1Card);
+            System.out.println("Player 2 plays: " + p2Card);
+
+            List<Card> warPile = new LinkedList<>();
+            warPile.add(p1Card);
+            warPile.add(p2Card);
+
+            while (p1Card.getCard() == p2Card.getCard()) { // War condition
+                System.out.println("WAR! Each player places 3 cards face down and 1 face up...");
+
+                // If a player has fewer than 4 cards, they lose immediately
+                if (deck1.size() < 4) {
+                    System.out.println("Player 1 does not have enough cards for war. Player 2 wins!");
+                    return;
+                } else if (deck2.size() < 4) {
+                    System.out.println("Player 2 does not have enough cards for war. Player 1 wins!");
+                    return;
+                }
+
+                // Each player places 3 face-down cards
+                for (int i = 0; i < 3; i++) {
+                    warPile.add(deck1.removeFirst());
+                    warPile.add(deck2.removeFirst());
+                }
+
+                // The next face-up card determines the winner
+                p1Card = deck1.removeFirst();
+                p2Card = deck2.removeFirst();
+
+                warPile.add(p1Card);
+                warPile.add(p2Card);
+
+                System.out.println("Player 1's war card: " + p1Card);
+                System.out.println("Player 2's war card: " + p2Card);
             }
-            round++;
+
+            // Determine winner of the round
+            if (p1Card.getCard() > p2Card.getCard()) {
+                deck1.addAll(warPile);
+                System.out.println("Player 1 wins this round!");
+            } else {
+                deck2.addAll(warPile);
+                System.out.println("Player 2 wins this round!");
+            }
         }
-        scanner.close();
-        displayWinner();
-    }
-    
-    private void displayWinner() {
-        System.out.println("\n--- Game Over ---");
-        System.out.println(player1.getName() + "'s Score: " + player1.getScore());
-        System.out.println(player2.getName() + "'s Score: " + player2.getScore());
-        
-        if (player1.getScore() > player2.getScore()) {
-            System.out.println(player1.getName() + " wins the game!");
-        } else if (player1.getScore() < player2.getScore()) {
-            System.out.println(player2.getName() + " wins the game!");
+
+        // Game Over Message
+        if (deck1.isEmpty()) {
+            System.out.println("\nGame Over! Player 2 wins!");
         } else {
-            System.out.println("The game is a tie!");
+            System.out.println("\nGame Over! Player 1 wins!");
         }
-    }
-    
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Player 1's name: ");
-        String name1 = scanner.nextLine();
-        System.out.print("Enter Player 2's name: ");
-        String name2 = scanner.nextLine();
-        
-        WarGame game = new WarGame(name1, name2);
-        game.playGame();
     }
 }
-
-
