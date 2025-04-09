@@ -5,17 +5,11 @@
 package wargame;
 
 /**
- * Enum for card suits.
- * 
- * Follows:
- * - SRP: Only defines card suits.
- * - Type safety using enum improves code readability and maintainability.
- * 
+ *
  * @author Gourav,Dilpreet Singh, Simranpreet Kaur Khattra
  * 
  */
 
 public enum Suit {
     SPADES, HEARTS, CLUBS, DIAMONDS;
-    // SRP: Enum handles only the suit data, no behavior.
 }

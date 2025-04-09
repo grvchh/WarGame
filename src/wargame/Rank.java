@@ -6,13 +6,6 @@ package wargame;
 
 /**
  *
- * Enum for card ranks with associated value.
- * 
- * Follows:
- * - SRP: Each rank has a name and numeric value.
- * - Encapsulation: Value is private and accessed via a getter.
- * 
- * 
  * @author Gourav,Dilpreet Singh, Simranpreet Kaur Khattra
  * 
  */
@@ -20,15 +13,14 @@ package wargame;
 public enum Rank {
     TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9),
     TEN(10), JACK(11), QUEEN(12), KING(13), ACE(14);
-    // SRP: Enum handles only the rank data.
-    
-    private final int value;  // Encapsulated rank value
+
+    private final int value;
     
     Rank(int value) {
         this.value = value;
     }
 
     public int getValue() {
-        return value; // Getter provides controlled access
+        return value;
     }
 }

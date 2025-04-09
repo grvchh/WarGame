@@ -13,21 +13,13 @@ import java.util.Arrays;
 
 /**
  *
- * Represents a game player and manages their deck.
- * 
- * Follows:
- * - SRP: Handles only player-related responsibilities.
- * - Encapsulation: Deck and name are private.
- * - Abstraction: Interacts with deck through methods like playCard(), winCards().
- * 
- * 
  * @author Gourav,Dilpreet Singh, Simranpreet Kaur Khattra
  * 
  */
 
 public class Player {
-    private final String name; // Encapsulated player name
-    private final LinkedList<Card> deck; // Encapsulated deck of cards
+    private final String name;
+    private final LinkedList<Card> deck;
 
     public Player(String name, LinkedList<Card> deck) {
         this.name = name;
@@ -39,31 +31,25 @@ public class Player {
     }
 
     public int getDeckSize() {
-        return deck.size(); // Provides current deck size
+        return deck.size();
     }
 
     public boolean hasLost() {
-        return deck.isEmpty(); // Abstracts how loss is determined
+        return deck.isEmpty();
     }
 
     public Card playCard() {
-        return deck.isEmpty() ? null : deck.removeFirst(); // Removes and returns top card
+        return deck.isEmpty() ? null : deck.removeFirst();
     }
 
     public void winCards(Card... cards) {
-        deck.addAll(Arrays.asList(cards)); // Adds cards to the deck
+        deck.addAll(Arrays.asList(cards));
     }
 
     public boolean canContinueWar() {
-        return deck.size() >= 4; // Checks if player has enough cards for war
+        return deck.size() >= 4;
     }
-    
-    public void addCards(List<Card> wonCards) {
-        // SRP: Only adds cards to the player's deck.
-        // OCP: You could change the order of card addition (e.g., shuffle) without changing class logic.
-        deck.addAll(wonCards);
-    }
-    
+
     public List<Card> playWarCards() {
         List<Card> warCards = new LinkedList<>();
         for (int i = 0; i < 3; i++) {
