@@ -6,6 +6,13 @@ package wargame;
 
 /**
  *
+ * Handles core game logic and manages game rounds.
+ * 
+ * Follows:
+ * - SRP: Controls game flow, independent from UI and card details.
+ * - Open/Closed Principle: Could add more features (e.g., score system) without changing core.
+ * - Abstraction: Methods like start(), declareWinner() hide game details from caller.
+ * 
  * @author Gourav,Dilpreet Singh, Simranpreet Kaur Khattra
  * 
  */
@@ -30,6 +37,7 @@ public class Game {
             System.out.println(player1.getName() + " has " + player1.getDeckSize() + " cards.");
             System.out.println(player2.getName() + " has " + player2.getDeckSize() + " cards.");
 
+            
             Card card1 = player1.playCard();
             Card card2 = player2.playCard();
 
@@ -51,6 +59,7 @@ public class Game {
                 warPile.addAll(player1.playWarCards());
                 warPile.addAll(player2.playWarCards());
 
+                // Get last two cards for comparison
                 card1 = warPile.get(warPile.size() - 2);
                 card2 = warPile.get(warPile.size() - 1);
             }

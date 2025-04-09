@@ -12,14 +12,20 @@ import java.util.Arrays;
 
 
 /**
- *
+ *Represents a game player and manages their deck.
+ * 
+ * Follows:
+ * - SRP: Handles only player-related responsibilities.
+ * - Encapsulation: Deck and name are private.
+ * - Abstraction: Interacts with deck through methods like playCard(), winCards().
+ * 
  * @author Gourav,Dilpreet Singh, Simranpreet Kaur Khattra
  * 
  */
 
 public class Player {
-    private final String name;
-    private final LinkedList<Card> deck;
+    private final String name; // Encapsulated player name
+    private final LinkedList<Card> deck; // Encapsulated deck of cards
 
     public Player(String name, LinkedList<Card> deck) {
         this.name = name;
@@ -31,23 +37,23 @@ public class Player {
     }
 
     public int getDeckSize() {
-        return deck.size();
+        return deck.size(); // Provides current deck size
     }
 
     public boolean hasLost() {
-        return deck.isEmpty();
+        return deck.isEmpty(); // Abstracts how loss is determined
     }
 
     public Card playCard() {
-        return deck.isEmpty() ? null : deck.removeFirst();
+        return deck.isEmpty() ? null : deck.removeFirst(); // Removes and returns top card
     }
 
     public void winCards(Card... cards) {
-        deck.addAll(Arrays.asList(cards));
+        deck.addAll(Arrays.asList(cards)); // Adds cards to the deck
     }
 
     public boolean canContinueWar() {
-        return deck.size() >= 4;
+        return deck.size() >= 4; // Checks if player has enough cards for war
     }
 
     public List<Card> playWarCards() {
