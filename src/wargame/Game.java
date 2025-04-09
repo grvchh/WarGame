@@ -6,6 +6,13 @@ package wargame;
 
 /**
  *
+ * Handles core game logic and manages game rounds.
+ * 
+ * Follows:
+ * - SRP: Controls game flow, independent from UI and card details.
+ * - Open/Closed Principle: Could add more features (e.g., score system) without changing core.
+ * - Abstraction: Methods like start(), declareWinner() hide game details from caller.
+ * 
  * @author Gourav,Dilpreet Singh, Simranpreet Kaur Khattra
  * 
  */
@@ -19,6 +26,7 @@ public class Game {
     private int round;
 
     public Game(String name1, String name2, LinkedList<Card> deck1, LinkedList<Card> deck2) {
+        // SRP (Single Responsibility Principle): Game constructor only sets up players and round
         this.player1 = new Player(name1, deck1);
         this.player2 = new Player(name2, deck2);
         this.round = 1;
@@ -30,16 +38,21 @@ public class Game {
             System.out.println(player1.getName() + " has " + player1.getDeckSize() + " cards.");
             System.out.println(player2.getName() + " has " + player2.getDeckSize() + " cards.");
 
+            // Encapsulation: Each player handles their own deck internally
             Card card1 = player1.playCard();
             Card card2 = player2.playCard();
 
+            
+            
             System.out.println(player1.getName() + " plays: " + card1);
             System.out.println(player2.getName() + " plays: " + card2);
 
+            
             List<Card> warPile = new LinkedList<>();
             warPile.add(card1);
             warPile.add(card2);
 
+            
             while (card1.getRank().getValue() == card2.getRank().getValue()) {
                 System.out.println("WAR! Each player places 3 cards face down and 1 face up...");
 
