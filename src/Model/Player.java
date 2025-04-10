@@ -24,9 +24,12 @@ import java.util.Arrays;
  */
 
 public class Player {
+    
     private final String name; // Encapsulated player name
     private final LinkedList<Card> deck; // Encapsulated deck of cards
+    private List<Card> cards; // or Queue<Card> cards;
 
+    
     public Player(String name, LinkedList<Card> deck) {
         this.name = name;
         this.deck = deck;
@@ -52,9 +55,15 @@ public class Player {
         deck.addAll(Arrays.asList(cards)); // Adds cards to the deck
     }
 
+    public int getCardCount() {
+        return cards.size(); // or however you're storing cards
+    }
+
     public boolean canContinueWar() {
         return deck.size() >= 4; // Checks if player has enough cards for war
     }
+    
+
 
     public List<Card> playWarCards() {
         List<Card> warCards = new LinkedList<>();

@@ -23,16 +23,29 @@ import java.util.*;
 
 
 public class Game {
+    
+    private List<Player> players;
+    
     private final Player player1;
     private final Player player2;
     private int round;
 
     public Game(String name1, String name2, LinkedList<Card> deck1, LinkedList<Card> deck2) {
+        players = new ArrayList<>();
         this.player1 = new Player(name1, deck1);
         this.player2 = new Player(name2, deck2);
         this.round = 1;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public boolean isGameOver() {
+        return players.stream().anyMatch(player -> player.getCardCount() == 0);
+    }
+
+    
     public void start() {
         while (!player1.hasLost() && !player2.hasLost()) {
             System.out.println("\nRound " + round++);
