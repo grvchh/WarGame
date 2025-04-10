@@ -19,13 +19,17 @@ package wargame;
  * 
  */
 
-import wargame.Card;
+import Controller.Game;
+import Model.Card;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import Model.Card;
+import Model.Rank;
+import Model.Suit;
 
 
 public class WarGame {
